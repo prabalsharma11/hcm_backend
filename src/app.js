@@ -14,10 +14,13 @@ const { Chat } = require('./models/chat')
 const { chatRoutes } = require('./Routes/chatRoutes')
 
 const server = http.createServer(app)
-
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://hcm-frontend.onrender.com' // deployed frontend URL
+]
 const io = fn(server, {
   cors: {
-    origin: 'http://localhost:5173','https://hcm-frontend.onrender.com'
+    origin: allowedOrigins,
   },
 })
 
@@ -63,7 +66,13 @@ connectDB()
 app.use(
   cors({
     credentials: true,
-    origin: 'https://hcm-frontend.onrender.com','http://localhost:5173'
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
   })
 )
 app.use(express.json()) // parses req.body
