@@ -17,7 +17,7 @@ const server = http.createServer(app)
 
 const io = fn(server, {
   cors: {
-    origin: 'http://localhost:5173','https://hcm-65tffx749-prabals-projects-9f1c4bff.vercel.app/'
+    origin: 'http://localhost:5173','https://hcm-frontend.onrender.com'
   },
 })
 
@@ -63,7 +63,7 @@ connectDB()
 app.use(
   cors({
     credentials: true,
-    origin: 'https://hcm-65tffx749-prabals-projects-9f1c4bff.vercel.app/','http://localhost:5173'
+    origin: 'https://hcm-frontend.onrender.com','http://localhost:5173'
   })
 )
 app.use(express.json()) // parses req.body
